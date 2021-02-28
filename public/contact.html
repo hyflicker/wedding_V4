@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Wedding RSVP</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,800&amp;display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/ico" href="ring2.ico">
+    </head>
+    <body class="fullBody">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-plum">
+            <a class="navbar-brand" href="index.html">JANE & JOHN'S WEDDING</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">RSVP
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Registry</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Photos</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            More
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Lodging</a>
+                            <a class="dropdown-item" href="#">Directions</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="contact.html">Contact Us</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container" id="content-form">
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+                    <div class="page1" id="page1">
+                        <form class="form-first">
+                            <div class="form-body">
+                                <h1>Contact Us</h1>
+                                <h3>Please fill out the below form.</h3>
+                                <div id="form-div">
+                                    <form class="form-group" id="form-group" method="POST">
+                                        <label for="contactName" class="Attendee-label ">Name<span id="redStar" class="redStar">*</span>
+                                        </label>
+                                        <input type="text" placeholder="Enter Full Name" name="name" class="form-control Attendee" id="contactName" required>
+                                        <br>
+                                        <label for="exampleInputEmail1" class="Attendee-label">Email address<span id="redStar" class="redStar">*</span>
+                                        </label>
+                                        <input type="email" class="form-control Attendee-fix" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" required>
+                                        <label for="contact-select" class="Attendee-label" name="subject">Subject<span id="redStar" class="redStar">*</span>
+                                        </label>
+                                        <select class="form-control Attendee-fix" id="contact-select" required>
+                                            <option value="" selected disabled hidden>Choose Subject</option>
+                                            <option value="1">Issues with RSVP</option>
+                                            <option value="2">Issues with Registry</option>
+                                            <option value="3">Issues with Lodging</option>
+                                            <option value="4">Other</option>
+                                        </select>
+                                        <input type="text" placeholder="Enter Other Subject" name="othersubject" class="form-control Attendee" id="contactOther" style="display:none">
+                                        <label for="contact-message" class="Attendee-label">Message<span id="redStar" class="redStar">*</span>
+                                        </label>
+                                        <textarea class="Attendee-fix" id="contact-message" rows="4" cols="30" required name='textarea'></textarea>
+                                        <button id="contact-submit" class="submitUnable btn bg-plum" method='POST' action='form-to-email.php'>Send</button>
+                                        <br><br>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <script src="contact.js"></script>
+                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+                <script>
+                    $('form').on('submit', (e) => { // e.preventDefault();
+
+                        const name = $('#name').val().trim();
+                        const email = $('#from-email').val().trim();
+                        const subject = $('#subject').val().trim();
+                        const text = $('#text').val().trim();
+
+                        const data = {
+                            name,
+                            email,
+                            subject,
+                            text
+                        };
+
+                        $.post('/email', data, function () {
+                            console.log('Server recieved our data');
+                        });
+                    });
+                    // document.getElementById('#form-data').reset();
+                </script>
+            </body>
+        </html>
+    </body>
+</html>

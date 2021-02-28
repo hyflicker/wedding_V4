@@ -1,0 +1,259 @@
+.fullBody{
+    background: url("background.png");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.form-body {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 15px;
+    border-radius: 20px;
+
+}
+
+#contactName input{
+    text-align: left;
+}
+
+.container form {
+    background-color: rgba(255, 255, 255, 0.795);
+    border-radius: 20px;
+}
+
+.btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+ }
+a:focus
+{
+         outline: none;
+}
+
+.navbar-toggler:focus
+{
+         outline: none !important;
+         box-shadow: none;
+}
+
+.bg-plum{   
+    background-color: #4b2f45;
+    color: white;
+}
+
+.navbar-brand {
+    font-size: 18px;
+}
+
+body h1{
+    font-family: 'Raleway', sans-serif;
+    margin: 15px auto;
+}
+
+body h2 {
+    font-family: 'Great Vibes', cursive;
+    margin: 15px auto;
+}
+
+.h3, h3 {
+    font-size: 1rem;
+}
+
+p {
+    margin: 15px auto;
+}
+
+a.nav-link{
+    font-family: 'Raleway', sans-serif;
+}
+
+a.navbar-brand{
+    font-family: 'Raleway', sans-serif;
+}
+
+#invitecode {
+    width: 40%;
+    text-align: center;
+}
+#RSVP {
+    line-height: 48px;
+    width: 49.5%;
+    float: left;
+    border-radius: 20px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    font-family: 'Raleway', sans-serif;
+    margin: -10px auto;
+}
+
+#unableToMakeIt{
+    width: 49.5%;
+    float: right;
+    border-radius: 20px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    font-family: 'Raleway', sans-serif;
+    margin: -10px auto;
+}
+
+#RSVP:hover {
+    border: solid 3px white;
+    margin-top: -11px;
+}
+
+#unableToMakeIt:hover {
+    border: solid 3px white;
+    margin-top: -11px;
+}
+
+.page1 {
+    display:block;
+}
+.page2 {
+    display: none;
+}
+
+.page3 {
+    display: none;
+}
+
+.rsvpTextAreaLabel {
+    display: block;
+}
+.contact-labels{
+    text-align: left;
+}
+
+form input{
+    width: 50%;
+}
+
+.Page2InviteCode{
+    width: 20%;
+}
+
+.Page3InviteCode{
+    width: 20%;
+    text-align: center;
+}
+
+.addPeople{
+    width: 27%;
+    margin: 10px 10px;
+    color: #fff;
+    background-color: #4b2f45;
+    border-radius: 20px;
+    height: 50px;
+}
+
+.addPeople:hover{
+    border: solid 3px #c4bfc3;
+}
+
+.form-control{
+    display: inline;
+    border: 1px solid #4b2f45;
+    font-size: 0.95rem;
+}
+
+.redStar{
+    color: red;
+}
+
+.form-control:focus{
+    border:1px solid#4b2f45;
+    box-shadow: 3px #4b2f45;
+}
+.rsvpTextArea{
+    width: 50%;
+}
+
+.submitRSVP {
+    margin: 10px auto;
+    border-radius: 20px;
+}
+
+.submitRSVP:hover {
+    border: solid 3px white;
+    margin-top: 8px;
+}
+
+.submitUnable {
+    margin: 10px auto;
+    border-radius: 20px;
+}
+
+.submitUnable:hover {
+    border: solid 3px white;
+    margin-top: 8px;
+
+}
+
+.Attendee {
+    width: 55%;
+}
+.Attendee-fix{
+    width: 55%;
+    display: block;
+    margin: 0 auto;
+}
+.Attendee-label{
+    text-align: left;
+    display: flex;
+    margin-left: 22%;
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
+input .Page2InviteCode .form-control, select {
+    border: 1px solid pink;
+}
+
+.form-control:disabled, .form-control[readonly]{
+    background-color:whitesmoke;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {   
+  border-color: #4b2f4596;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px#4b2f4596;
+  outline: 0 none;
+}
+
+#tyul {
+    margin: 0 auto;
+    padding-inline-end: 40px;
+}
+
+.tyli {
+    color: #fff;
+    background-color: #4b2f45;
+    width: 20%;
+    border-radius: 20px;
+    font-family: 'Raleway', sans-serif;
+    margin: 0.5% auto;
+    list-style: none;
+    display: inline-block;
+}
+
+.tyli:hover{
+    border: solid 3px black;
+    margin-top: -11px;
+}
