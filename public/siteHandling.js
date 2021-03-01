@@ -28,7 +28,7 @@ function inputReset() {
 
 document.getElementById("RSVP").onclick = function (e) {
     e.preventDefault();
-    const data = { "inviteCode": invCode.value };
+    const data = { "wedding_code": invCode.value };
     // console.log(data);
     const options = {
         method: 'POST',
@@ -43,15 +43,17 @@ document.getElementById("RSVP").onclick = function (e) {
         }
         return Promise.reject(response);
     }).then(function (data, response) {
+        const {name1,name2,name3,name4,name5,name6,wedding_code} = data
+        // console.log(data)
         if (invCode.value !== "") {
             if (data.status === 'success') {
-                Attendie1.value = data.name1;
-                Attendie2.value = data.name2;
-                Attendie3.value = data.name3;
-                Attendie4.value = data.name4;
-                Attendie5.value = data.name5;
-                Attendie6.value = data.name6;
-                invCode2.value = data.InviteCode;
+                Attendie1.value = name1;
+                Attendie2.value = name2;
+                Attendie3.value = name3;
+                Attendie4.value = name4;
+                Attendie5.value = name5;
+                Attendie6.value = name6;
+                invCode2.value = wedding_code.toUpperCase();
                 page1.style.display = "none";
                 page2.style.display = "block";
                 if (data.name3 !== null) {
@@ -89,7 +91,7 @@ document.getElementById("RSVP").onclick = function (e) {
 }
 document.getElementById("unableToMakeIt").onclick = function (e) {
     e.preventDefault();
-    const data = { "inviteCode": invCode.value };
+    const data = { "wedding_code": invCode.value.toUpperCase() };
     // console.log(data);
     const options = {
         method: 'POST',
@@ -104,11 +106,12 @@ document.getElementById("unableToMakeIt").onclick = function (e) {
         }
         return Promise.reject(response);
     }).then(function (data) {
+        const {status,name1,name2,name3,name4,name5,name6,wedding_code} = data
         if (invCode.value !== "") {
-            if (data.status === 'success') {
-                unableAttendie1.value = data.name1;
-                unableAttendie2.value = data.name2;
-                document.getElementById("Page3InviteCode").value = data.InviteCode;
+            if (status === 'success') {
+                unableAttendie1.value = name1;
+                unableAttendie2.value = name2;
+                document.getElementById("Page3InviteCode").value = wedding_code.toUpperCase();
                 page1.style.display = "none";
                 page3.style.display = "block";
             } else {
@@ -158,14 +161,14 @@ document.getElementById("addPeopleButton").onclick = function (e) {
 document.getElementById("submitRSVP").onclick = function (e) {
     e.preventDefault();
     const data = {
-        "inviteCode": invCode.value,
-        "Attendee1": Attendie1.value,
-        "Attendee2": Attendie2.value,
-        "Attendee3": Attendie3.value,
-        "Attendee4": Attendie4.value,
-        "Attendee5": Attendie5.value,
-        "Attendee6": Attendie6.value,
-        "rsvpTextBox": textBox1.value
+        "wedding_code": invCode.value,
+        "name1": Attendie1.value,
+        "name2": Attendie2.value,
+        "name3": Attendie3.value,
+        "name4": Attendie4.value,
+        "name5": Attendie5.value,
+        "name6": Attendie6.value,
+        "additional_comments": textBox1.value
     };
     console.log(data);
     const options = {
@@ -182,6 +185,7 @@ document.getElementById("submitRSVP").onclick = function (e) {
         return Promise.reject(response);
     }).then(function (data) {
         if (data.status === "success") {
+            console.log(data);
             window.location.replace("thankyou.html");
 
         }
@@ -194,10 +198,10 @@ document.getElementById("submitRSVP").onclick = function (e) {
 document.getElementById("submitUnable").onclick = function (e) {
     e.preventDefault();
     const data = {
-        "inviteCode": invCode.value,
-        "Attendee1": unableAttendie1.value,
-        "Attendee2": unableAttendie2.value,
-        "UnableTextBox": unableTextBox1.value
+        "wedding_code": invCode.value,
+        "name1": unableAttendie1.value,
+        "name2": unableAttendie2.value,
+        "additional_comments": unableTextBox1.value
     };
     console.log(data);
     const options = {

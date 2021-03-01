@@ -24,39 +24,35 @@ app.use(express.static('public'));
 app.use(express.json({ limit: '1mb' }));
 
 app.post('/api', (request, response) => {
-    // console.log('I got a request!');
     const data = request.body;
-    // console.log(data.inviteCode);
+    let { name1, name2, name3, name4, name5, name6, additional_comments, wedding_code } = data;
     let sql = `SELECT wedding_code FROM wedding_codes`;
-    db.query(sql, (err, result) => {
+    db.execute(sql, (err, result) => {
         if (err) throw err;
         let testArray = [];
         for (let i = 0; i < result.length; i++) {
             testArray.push(`${result[i].wedding_code}`)
         }
-        // console.log(testArray);
-        if (testArray.includes(data.inviteCode)) {
-            console.log('true')
-            let newSQL = `SELECT * FROM wedding_codes WHERE wedding_code='${data.inviteCode.toUpperCase()}'`
-                db.query(newSQL, (err, results) => {
-                    if (err) throw err;
-                    console.log(results[0])
-                    response.json({
-                        status: "success",
-                        InviteCode: data.inviteCode,
-                        name1: results[0].name1,
-                        name2: results[0].name2,
-                        name3: results[0].name3,
-                        name4: results[0].name4,
-                        name5: results[0].name5,
-                        name6: results[0].name6
-                    });
-                })
-        }else{
-            // console.log('false');
+        if (testArray.includes(wedding_code.toUpperCase())) {
+            db.execute('SELECT * FROM wedding_codes WHERE wedding_code= ?', [wedding_code.toUpperCase()], (err, results) => {
+                console.log(wedding_code.toUpperCase());
+                if (err) throw err;
+                console.log(results[0])
+                response.json({
+                    status: "success",
+                    wedding_code: wedding_code,
+                    name1: results[0].name1,
+                    name2: results[0].name2,
+                    name3: results[0].name3,
+                    name4: results[0].name4,
+                    name5: results[0].name5,
+                    name6: results[0].name6
+                });
+            })
+        } else {
             response.json({
                 status: "failed",
-                InviteCode: data.inviteCode
+                wedding_code: wedding_code
             })
         }
     })
@@ -64,63 +60,30 @@ app.post('/api', (request, response) => {
 
 app.post('/apiSubmit1', (request, response) => {
     const data = request.body;
-    // console.log(data);
-    let codeCheck = `SELECT * FROM wedding_codes WHERE wedding_code='${data.inviteCode}'`;
-    db.query(codeCheck, (err, resultCheck) => {
+    let { name1, name2, name3, name4, name5, name6, additional_comments, wedding_code } = data;
+    const dname2 = name2 || null;
+    const dname3 = name3 || null;
+    const dname4 = name4 || null;
+    const dname5 = name5 || null;
+    const dname6 = name6 || null;
+    const comments_to_save = additional_comments || null;
+    db.query('SELECT * FROM wedding_codes WHERE wedding_code= ?', [wedding_code.toUpperCase()], (err, resultCheck) => {
         if (err) {
-            console.log(err)
+            throw err;
         }
         if (Object.keys(resultCheck).length === 0) {
             console.log('empty')
         } else {
-            let sql = `UPDATE wedding_codes SET name1 = "${data.Attendee1}", name2 = "${data.Attendee2}", name3 = "${data.Attendee3}", name4 = "${data.Attendee4}", name5 = "${data.Attendee5}", name6 = "${data.Attendee6}", additional_comments = "${data.rsvpTextBox}", rsvp = '1', coming = '1', not_coming = '0' WHERE wedding_code='${data.inviteCode}'`;
-            db.query(sql, (err, result) => {
+            let sql = `UPDATE wedding_codes SET name1= ?, name2= ?, name3= ?, name4= ?, name5= ?, name6= ?, additional_comments= ?, rsvp ='1', coming= '1', not_coming= '0' WHERE wedding_code=?`;
+            db.query(sql, [name1, dname2, dname3, dname4, dname5, dname6, comments_to_save, wedding_code], (err, result) => {
                 if (err) {
                     throw err;
                 } else {
-                    let sql2 = `UPDATE wedding_codes SET name2 = NULL WHERE name2 = ''`
-                    db.query(sql2, (err, result) => {
-                        if (err) {
-                            throw err;
-                        }
-                    })
-                    let sql3 = `UPDATE wedding_codes SET name3 = NULL WHERE name3 = ''`
-                    db.query(sql3, (err, result) => {
-                        if (err) {
-                            throw err;
-                        }
-                    })
-                    let sql4 = `UPDATE wedding_codes SET name4 = NULL WHERE name4 = ''`
-                    db.query(sql4, (err, result) => {
-                        if (err) {
-                            throw err;
-                        }
-                    })
-                    let sql5 = `UPDATE wedding_codes SET name5 = NULL WHERE name5 = ''`
-                    db.query(sql5, (err, result) => {
-                        if (err) {
-                            throw err;
-                        }
-                    })
-                    let sql6 = `UPDATE wedding_codes SET name6 = NULL WHERE name6 = ''`
-                    db.query(sql6, (err, result) => {
-                        if (err) {
-                            throw err;
-                        }
-                    })
-                    let textBox = `UPDATE wedding_codes SET additional_comments = NULL WHERE additional_comments = ''`
-                    db.query(textBox, (err, result) => {
-                        if (err) {
-                            throw err;
-                        }
-                    })
-                    let newSQL = `SELECT * FROM wedding_codes WHERE wedding_code='${data.inviteCode}'`
-                    db.query(newSQL, (err, results) => {
+                    db.query('SELECT * FROM wedding_codes WHERE wedding_code= ?', [wedding_code.toUpperCase()], (err, results) => {
                         if (err) throw err;
-                        console.log(results[0])
                         response.json({
                             status: "success",
-                            InviteCode: data.inviteCode,
+                            wedding_code: wedding_code,
                             name1: results[0].name1,
                             name2: results[0].name2,
                             name3: results[0].name3,
@@ -136,38 +99,33 @@ app.post('/apiSubmit1', (request, response) => {
 });
 
 app.post('/api2', (request, response) => {
-    // console.log(request.body);
     const data = request.body;
     let sql = `SELECT wedding_code FROM wedding_codes`
     db.query(sql, (err, result) => {
+        let { name1, name2, name3, name4, name5, name6, additional_comments, wedding_code } = data;
         if (err) throw err;
         let testArray = [];
         for (let i = 0; i < result.length; i++) {
             testArray.push(`${result[i].wedding_code}`)
         }
-        // console.log(testArray);
-        if (testArray.includes(data.inviteCode)) {
-            console.log('true')
-            let newSQL = `SELECT * FROM wedding_codes WHERE wedding_code='${data.inviteCode}'`
-                db.query(newSQL, (err, results) => {
-                    if (err) throw err;
-                    console.log(results[0])
-                    response.json({
-                        status: "success",
-                        InviteCode: data.inviteCode,
-                        name1: results[0].name1,
-                        name2: results[0].name2,
-                        name3: results[0].name3,
-                        name4: results[0].name4,
-                        name5: results[0].name5,
-                        name6: results[0].name6
-                    });
-                })
-        }else{
-            // console.log('false');
+        if (testArray.includes(wedding_code)) {
+            db.query(`SELECT * FROM wedding_codes WHERE wedding_code=?`, [wedding_code.toUpperCase()], (err, results) => {
+                if (err) throw err;
+                response.json({
+                    status: "success",
+                    wedding_code: results[0].wedding_code,
+                    name1: results[0].name1,
+                    name2: results[0].name2,
+                    name3: results[0].name3,
+                    name4: results[0].name4,
+                    name5: results[0].name5,
+                    name6: results[0].name6
+                });
+            })
+        } else {
             response.json({
                 status: "failed",
-                InviteCode: data.inviteCode
+                wedding_code: wedding_code
             })
         }
     })
@@ -175,32 +133,18 @@ app.post('/api2', (request, response) => {
 });
 
 app.post('/apiSubmit2', (request, response) => {
-    const data = request.body;
-    console.log(data);
-    let sql = `UPDATE wedding_codes SET name1 = "${data.Attendee1}", name2 = "${data.Attendee2}", additional_comments = "${data.UnableTextBox}", rsvp = '1', coming = '0', not_coming = '1' WHERE wedding_code='${data.inviteCode}'`;
-    db.query(sql, (err, result) => {
+    const {name1,name2,additional_comments,wedding_code} = request.body;
+    const dname2 = name2 || null;
+    const comments_to_save = additional_comments || null;
+    db.query(`UPDATE wedding_codes SET name1= ?,name2= ?,additional_comments= ?,rsvp= '1',coming= '0',not_coming= '1' WHERE wedding_code=?`, [name1, dname2, comments_to_save, wedding_code], (err, result) => { //breaks here...
         if (err) {
             throw err;
         } else {
-            let sql2 = `UPDATE wedding_codes SET name2 = NULL WHERE name2 = ''`
-            db.query(sql2, (err, result) => {
-                if (err) {
-                    throw err;
-                }
-            })
-            let textBox = `UPDATE wedding_codes SET additional_comments = NULL WHERE additional_comments = ''`
-            db.query(textBox, (err, result) => {
-                if (err) {
-                    throw err;
-                }
-            })
-            let newSQL = `SELECT * FROM wedding_codes WHERE wedding_code='${data.inviteCode}'`
-            db.query(newSQL, (err, results) => {
+            db.query(`SELECT * FROM wedding_codes WHERE wedding_code= ?`,[wedding_code.toUpperCase()], (err, results) => {
                 if (err) throw err;
-                console.log(results[0])
                 response.json({
                     status: "success",
-                    InviteCode: data.inviteCode,
+                    wedding_code: wedding_code,
                     name1: results[0].name1,
                     name2: results[0].name2,
                     name3: results[0].name3,
